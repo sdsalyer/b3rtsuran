@@ -1,0 +1,122 @@
+/* b3rts-miryoku */
+/*
+    "version": 1,
+    "notes": "Corne 3x5 for b3rts - Based on Miryoku",
+    "documentation": "idk",
+    "keyboard": "crkbd/rev1",
+    "keymap": "b3rts-miryoku",
+    "layout": "LAYOUT_split_3x6_3",
+*/
+
+#include QMK_KEYBOARD_H
+
+enum layers {
+    BASE,
+    NAV,
+    MEDIA,
+    NUMPAD,
+    SYMBOLS,
+    FUNCTIONS
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+    [BASE] = LAYOUT_split_3x6_3(
+        KC_NO, KC_Q, KC_W, KC_E, KC_R, KC_T,                                    /* ------- */    KC_Y, KC_U, KC_I, KC_O, KC_P, KC_NO,
+        KC_NO, LGUI_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G,    /* ------- */    KC_H, LSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LGUI_T(KC_SCLN), KC_NO,
+        KC_NO, KC_Z, RALT_T(KC_X), KC_C, KC_V, KC_B,                            /* ------- */    KC_N, KC_M, KC_COMM, RALT_T(KC_DOT), KC_SLSH, KC_NO,
+        LT(MEDIA,KC_ESC), LT(NUMPAD,KC_BSPC), LT(NAV,KC_TAB),                   /* ------- */    LT(SYMBOLS,KC_ENT), KC_SPC, LT(FUNCTIONS,KC_DEL)
+    ),
+
+    [NAV] = LAYOUT_split_3x6_3(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,               /* ------- */     KC_AGIN, KC_UNDO, KC_CUT, KC_COPY, KC_PSTE, KC_NO,
+        KC_NO, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO,       /* ------- */     KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_CAPS, KC_NO,
+        KC_NO, KC_NO, KC_RALT, KC_NO, KC_NO, KC_NO,             /* ------- */     KC_HOME, KC_PGDN, KC_PGUP, KC_END, KC_INS, KC_NO,
+        KC_NO, KC_NO, KC_NO,                                    /* ------- */     KC_ENT, KC_SPC, KC_DEL
+    ),
+
+    [MEDIA] = LAYOUT_split_3x6_3(
+        KC_NO, QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO,         /* ------- */     RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_NO,
+        KC_NO, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO,   /* ------- */     KC_NO, KC_MPRV, KC_MSTP, KC_MNXT, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_RALT, KC_NO, KC_NO, KC_NO,         /* ------- */     KC_NO, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_NO,                                /* ------- */     KC_MSTP, KC_MPLY, KC_MUTE
+    ),
+
+    [NUMPAD] = LAYOUT_split_3x6_3(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,           /* ------- */     KC_PAST, KC_7, KC_8, KC_9, KC_MINS, KC_NO,
+        KC_NO, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, KC_NO,   /* ------- */     KC_SLSH, KC_4, KC_5, KC_6, KC_EQL, KC_NO,
+        KC_NO, KC_NO, KC_RALT, KC_NO, KC_NO, KC_NO,         /* ------- */     KC_NO, KC_1, KC_2, KC_3, KC_ENT, KC_NO,
+        KC_NO, KC_NO, KC_NO,                                /* ------- */     KC_TAB, KC_0, KC_DOT
+    ),
+
+    [SYMBOLS] = LAYOUT_split_3x6_3(
+        KC_NO, KC_LCBR, KC_AMPR, KC_ASTR, KC_LPRN, KC_RCBR,    /* ------- */     KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, KC_NO,
+        KC_NO, KC_QUOT, KC_DLR, KC_PERC, KC_CIRC, KC_PLUS,     /* ------- */     KC_NO, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
+        KC_NO, KC_GRV, KC_EXLM, KC_AT, KC_HASH, KC_PIPE,      /* ------- */     KC_NO, KC_NO, KC_NO, KC_RALT, KC_NO, KC_NO,
+        KC_LPRN, KC_RPRN, KC_UNDS,                             /* ------- */     KC_NO, KC_NO, KC_NO
+    ),
+
+    [FUNCTIONS] = LAYOUT_split_3x6_3(
+        KC_NO, KC_PAUS, KC_F1, KC_F2, KC_F3, KC_F10,    /* ------- */     KC_NO, KC_NO, KC_NO, KC_NO, QK_BOOT, KC_NO,
+        KC_NO, KC_SCRL, KC_F4, KC_F5, KC_F6, KC_F11,    /* ------- */     KC_NO, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_NO,
+        KC_NO, KC_PSCR, KC_F7, KC_F8, KC_F9, KC_F12,    /* ------- */     KC_NO, KC_NO, KC_NO, KC_RALT, KC_NO, KC_NO,
+        KC_APP, KC_SPC, KC_TAB,                         /* ------- */     KC_NO, KC_NO, KC_NO
+    )
+
+};
+
+
+/*
+    OLED stuff
+*/
+#ifdef OLED_ENABLE
+
+bool oled_task_user(void) {
+    if (is_keyboard_master()) {
+
+        // oled_write_P(PSTR("Layer:\n\n"), false);
+        switch (get_highest_layer(layer_state)) {
+            case BASE:
+                oled_write_P(PSTR("---\n"), false);
+                break;
+            case NAV:
+                oled_write_P(PSTR("NAV\n"), false);
+                break;
+            case MEDIA:
+                oled_write_P(PSTR("MED\n"), false);
+                break;
+            case NUMPAD:
+                oled_write_P(PSTR("NUM\n"), false);
+                break;
+            case SYMBOLS:
+                oled_write_P(PSTR("SYM\n"), false);
+                break;
+            case FUNCTIONS:
+                oled_write_P(PSTR("FUN\n"), false);
+                break;
+            default:
+                // Or use the write_ln shortcut over adding '\n' to the end of your string
+                //oled_write_ln_P(PSTR("N/A"), false);
+                break;
+        }
+
+    }
+    else {
+        // oled_render_anim();
+    }
+
+    return false;
+}
+
+oled_rotation_t oled_init_user(oled_rotation_t rotation) {
+    if (is_keyboard_master()) {
+        return OLED_ROTATION_270;
+    }
+    else {
+        return OLED_ROTATION_180;
+    }
+    return rotation;
+}
+
+#endif
+
