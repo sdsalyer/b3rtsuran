@@ -1,9 +1,9 @@
 {
     "manufacturer": "b3rts",
-    "keyboard_name": "hadwired/b3rtsuran",
+    "keyboard_name": "b3rtsuran",
     "maintainer": "b3rts",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_buran": {
             "layout": [
                 // Row 1
                 {"x":0, "y":0},

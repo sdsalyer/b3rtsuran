@@ -4,6 +4,8 @@ BOARD = QMK_PM2040
 BOOTLOADER = rp2040
 CONVERT_TO=kb2040
 
+#LAYOUTS = ortho_4x10
+
 # Build Options
 #   change yes to no to disable
 #

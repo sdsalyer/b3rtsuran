@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include QMK_KEYBOARD_H
 #include "config_common.h"
 
 /* --- USB Device properties --- */
