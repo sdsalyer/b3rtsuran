@@ -16,6 +16,7 @@
 #EXTRAKEY_ENABLE = yes       # Audio control and System control
 I2C_DRIVER_REQUIRED = yes    # Force I2C driver usage for Encoder
 CONSOLE_ENABLE = yes         # Console for debug
+#BOARD = GENERIC_RP_RP2040
 #COMMAND_ENABLE = no         # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 #SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
