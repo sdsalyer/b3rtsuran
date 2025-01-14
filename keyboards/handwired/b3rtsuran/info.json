@@ -16,6 +16,18 @@
         "rgb_matrix": false,
         "oled": false
     },
+    "ws2812": {
+        "pin": "GP17",
+        "driver": "vendor"
+    },
+    // "encoder": {
+    //     "rotary": [
+    //         {
+    //             "pin_a": "GP12",
+    //             "pin_b": "GP13"
+    //         }
+    //     ]
+    // },
     "matrix_pins": {
         // Convert these from KB2040 to match the pinout of RP2040???
         "cols": [
